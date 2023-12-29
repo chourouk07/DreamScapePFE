@@ -16,7 +16,7 @@ public class MovingPlatform : MonoBehaviour
     private void Update()
     {
 
-        if (transform.position.z< finalPoint.position.z || transform.position.y >finalPoint.position.y)
+        if (transform.position.z< finalPoint.position.z || transform.position.y >finalPoint.position.y || transform.position.x< finalPoint.position.x)
         {
             if (!isSlowed)
             {
