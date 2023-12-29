@@ -11,9 +11,7 @@ namespace StarterAssets
 #endif
     public class InteractionController : MonoBehaviour
     {
-#if ENABLE_INPUT_SYSTEM
         private PlayerInput _playerInput;
-#endif
         private StarterAssetsInputs _input;
 
         [SerializeField] private bool isColliding = false;
@@ -23,11 +21,8 @@ namespace StarterAssets
         private void Start()
         {
             _input = GetComponent<StarterAssetsInputs>();
-#if ENABLE_INPUT_SYSTEM 
             _playerInput = GetComponent<PlayerInput>();
-#else
-			Debug.LogError( "Starter Assets package is missing dependencies. Please use Tools/Starter Assets/Reinstall Dependencies to fix it");
-#endif
+
 
         }
         private void Update()
