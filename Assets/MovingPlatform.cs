@@ -16,7 +16,7 @@ public class MovingPlatform : MonoBehaviour
     private void Update()
     {
 
-        if (transform.position.z< finalPoint.position.z)
+        if (transform.position.z< finalPoint.position.z || transform.position.y >finalPoint.position.y)
         {
             if (!isSlowed)
             {
@@ -25,7 +25,7 @@ public class MovingPlatform : MonoBehaviour
             }
             if (isSlowed)
             {
-                transform.position = Vector3.MoveTowards(transform.position, finalPoint.position, platMoveSpeed *0.1f* Time.deltaTime);
+                transform.position = Vector3.MoveTowards(transform.position, finalPoint.position, platMoveSpeed *0.05f* Time.deltaTime);
             }
         }
         
