@@ -65,7 +65,7 @@ namespace StarterAssets
         private IEnumerator WaitTime()
         {
             yield return new WaitForSeconds(1f);
-            interactionScript.SetTargetRotation(90f);
+           // interactionScript.SetTargetRotation(90f);
         }
     }
 }

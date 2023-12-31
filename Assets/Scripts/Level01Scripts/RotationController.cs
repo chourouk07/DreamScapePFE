@@ -3,39 +3,48 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RotationController : MonoBehaviour
+public class RotationController : MonoBehaviour, IInteractable
 {
+    [SerializeField] private string _prompt;
+    #region rotation variables
     [SerializeField] private GameObject[] objectsToRotate;
     [SerializeField] private float rotationSpeed;
-    [SerializeField]private int targetRotation =0;
+    [SerializeField] private int targetRotation = 0;
     [SerializeField] private float totalRotation;
-    [SerializeField] private InteractionController interactionController;
-    //[SerializeField] private bool isRotating = false;
+    [SerializeField] private bool isMoving=false;
+    #endregion
+    string IInteractable.InteractionPrompt => _prompt;
 
-    private void Start()
+    bool IInteractable.Interact(Interactor interactor)
     {
-        interactionController = FindObjectOfType<InteractionController>();
+        Debug.Log("Interacting with Wheel");
+        isMoving= true;
+        return true;
     }
+
     private void Update()
     {
-         if (totalRotation <= targetRotation)
+        if (isMoving)
+        {
+            RotateObjects();
+        }
+    }
+
+    void RotateObjects()
+    {
+        if (totalRotation <= targetRotation)
         {
             foreach (GameObject obj in objectsToRotate)
             {
-                interactionController.SetMoving(true);
                 obj.transform.Rotate(Vector3.up, rotationSpeed * Time.deltaTime);
                 totalRotation += rotationSpeed * Time.deltaTime;
             }
         }
         else
         {
-            interactionController.SetMoving(false);
+            isMoving = false;
+            totalRotation = 0;
         }
     }
-
-    public void SetTargetRotation(float newTargetRotation)
-    {
-        targetRotation+= (int)newTargetRotation;
-    }
-
 }
+
