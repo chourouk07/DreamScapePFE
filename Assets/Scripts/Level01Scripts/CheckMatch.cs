@@ -2,43 +2,45 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CheckMatch : MonoBehaviour
+public class CheckMatch : MonoBehaviour, IInteractable
 {
+    [SerializeField] private string _prompt;
     public bool canPlaceItem= false;
     [SerializeField] private GameObject crystal;
 
-    // Access the player through the GameManager
-    public GameObject player;
     PlayerInventory inventory;
+
+    public string InteractionPrompt => _prompt;
+
+    public bool Interact(Interactor interactor)
+    {
+        Debug.Log(_prompt);
+        canPlaceItem = true;
+        return true;
+    }
     private void Start()
     {
-        inventory = player.gameObject.GetComponent<PlayerInventory>();
-    }
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.gameObject.CompareTag("Player")){
-            if (inventory.isFull == 1)
-            {
-                canPlaceItem= true;
-            } 
-        }
+        inventory = GameManager.instance.player.GetComponent<PlayerInventory>();
     }
 
-    private void OnTriggerExit(Collider other)
+    private void Update()
     {
-        if (other.gameObject.CompareTag("Player"))
+        if (!canPlaceItem || inventory.isFull != 1)
         {
-                canPlaceItem = false; 
+            canPlaceItem = false;
+            return;
         }
+
+        OnPlaceItem();
     }
 
     public void OnPlaceItem()
     {
         if (gameObject.name == inventory.collectedItem.name)
         {
-            Debug.Log("Correct Item");
             crystal.SetActive(true);
         }
 
     }
+    
 }

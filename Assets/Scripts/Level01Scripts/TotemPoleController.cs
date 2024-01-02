@@ -1,23 +1,48 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class TotemPoleController : MonoBehaviour
 {
     [SerializeField] private GameObject[] totemParts;
     [SerializeField] private GameObject door1;
     [SerializeField] private bool isSameRotation;
+    #region Create Event
+    public delegate void EndRotationEventHandler();
+    public event EndRotationEventHandler OnEndRotationEvent;
+    #endregion
 
+    private void Start()
+    {
+        OnEndRotationEvent += () => { };
+    }
     private void Update()
     {
-        isSameRotation = CheckArray();
-        if (isSameRotation)
+        if (OnEndRotationEvent != null)
         {
-            Debug.Log("Correct Match");
-            door1.SetActive(false);
+            isSameRotation = CheckArray();
+            if (isSameRotation)
+            {
+                door1.SetActive(false);Debug.Log("same rotation");
+
+            }
         }
     }
 
+    public void SubscribeToEndRotationEvent(EndRotationEventHandler handler)
+    {
+        OnEndRotationEvent += handler;
+    }
+
+    public void UnsubscribeFromEndRotationEvent()
+    {
+        OnEndRotationEvent = null;
+    }
+    public void InvokeEndRotationEvent()
+    {
+        OnEndRotationEvent?.Invoke();
+    }
     bool CheckArray()
     {
 

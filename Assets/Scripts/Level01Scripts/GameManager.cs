@@ -4,19 +4,11 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-   public static GameManager Instance;
+   public static GameManager instance;
     public GameObject player;
     void Awake()
     {
-        // Implement the Singleton pattern
-        if (Instance == null)
-        {
-            Instance = this;
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
+     instance = this;
 
         // Make sure the player reference is set
         if (player == null)

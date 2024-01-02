@@ -2,10 +2,12 @@ using StarterAssets;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class RotationController : MonoBehaviour, IInteractable
 {
     [SerializeField] private string _prompt;
+    [SerializeField] private TotemPoleController totemPoleController;
     #region rotation variables
     [SerializeField] private GameObject[] objectsToRotate;
     [SerializeField] private float rotationSpeed;
@@ -17,8 +19,9 @@ public class RotationController : MonoBehaviour, IInteractable
 
     bool IInteractable.Interact(Interactor interactor)
     {
-        Debug.Log("Interacting with Wheel");
+        Debug.Log(_prompt);
         isMoving= true;
+        totemPoleController.SubscribeToEndRotationEvent(() => Debug.Log("Event Subscribed!"));
         return true;
     }
 
@@ -44,6 +47,9 @@ public class RotationController : MonoBehaviour, IInteractable
         {
             isMoving = false;
             totalRotation = 0;
+            totemPoleController.UnsubscribeFromEndRotationEvent();
+            totemPoleController.InvokeEndRotationEvent();
+            Debug.Log("Event Invoked");
         }
     }
 }
