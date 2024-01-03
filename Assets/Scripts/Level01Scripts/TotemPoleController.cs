@@ -8,41 +8,38 @@ public class TotemPoleController : MonoBehaviour
     [SerializeField] private GameObject[] totemParts;
     [SerializeField] private GameObject door1;
     [SerializeField] private bool isSameRotation;
-    #region Create Event
-    public delegate void EndRotationEventHandler();
-    public event EndRotationEventHandler OnEndRotationEvent;
-    #endregion
+    [SerializeField] private RotationController rotationController;
+    [SerializeField] private bool _startChecking = false;
 
-    private void Start()
+    public void SetCurrentRotationController(RotationController newRotationController)
     {
-        OnEndRotationEvent += () => { };
-    }
-    private void Update()
-    {
-        if (OnEndRotationEvent != null)
+        // unsubscribe from the previous RotationController's event
+        if (rotationController != null)
         {
-            isSameRotation = CheckArray();
-            if (isSameRotation)
-            {
-                door1.SetActive(false);Debug.Log("same rotation");
+            rotationController.EndRotationEvent -= OnEndRotationEvent;
+        }
 
-            }
+        // Set the new RotationController
+        rotationController = newRotationController;
+
+        // Subscribe to the new RotationController's event
+        if (rotationController != null)
+        {
+            rotationController.EndRotationEvent += OnEndRotationEvent;
         }
     }
 
-    public void SubscribeToEndRotationEvent(EndRotationEventHandler handler)
+    void OnEndRotationEvent(object source, EventArgs e)
     {
-        OnEndRotationEvent += handler;
+        Debug.Log("End Rotation");
+        _startChecking= true;
+        if (CheckArray())
+        {
+            Debug.Log("Same Rotation");
+            door1.SetActive(false);
+        }
     }
 
-    public void UnsubscribeFromEndRotationEvent()
-    {
-        OnEndRotationEvent = null;
-    }
-    public void InvokeEndRotationEvent()
-    {
-        OnEndRotationEvent?.Invoke();
-    }
     bool CheckArray()
     {
 

@@ -32820,6 +32820,8 @@ MonoBehaviour:
   - {fileID: 795866575}
   door1: {fileID: 189065078}
   isSameRotation: 0
+  rotationController: {fileID: 0}
+  _startChecking: 0
 --- !u!114 &628851698
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -33496,7 +33498,7 @@ MonoBehaviour:
   objectsToRotate:
   - {fileID: 142280205}
   - {fileID: 1095841773}
-  rotationSpeed: 6
+  rotationSpeed: 15
   targetRotation: 90
   totalRotation: 0
   isMoving: 0
@@ -55873,7 +55875,7 @@ MonoBehaviour:
   objectsToRotate:
   - {fileID: 1554962854}
   - {fileID: 795866575}
-  rotationSpeed: 8
+  rotationSpeed: 15
   targetRotation: 90
   totalRotation: 0
   isMoving: 0

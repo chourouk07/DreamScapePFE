@@ -15,13 +15,17 @@ public class RotationController : MonoBehaviour, IInteractable
     [SerializeField] private float totalRotation;
     [SerializeField] private bool isMoving=false;
     #endregion
+    #region Create Event
+    public delegate void EndRotationEventHandler(object source, EventArgs args);
+    public event EndRotationEventHandler EndRotationEvent;
+    #endregion
     string IInteractable.InteractionPrompt => _prompt;
 
     bool IInteractable.Interact(Interactor interactor)
     {
         Debug.Log(_prompt);
         isMoving= true;
-        totemPoleController.SubscribeToEndRotationEvent(() => Debug.Log("Event Subscribed!"));
+        totemPoleController.SetCurrentRotationController(this);
         return true;
     }
 
@@ -47,9 +51,15 @@ public class RotationController : MonoBehaviour, IInteractable
         {
             isMoving = false;
             totalRotation = 0;
-            totemPoleController.UnsubscribeFromEndRotationEvent();
-            totemPoleController.InvokeEndRotationEvent();
-            Debug.Log("Event Invoked");
+            OnEndRotationEvent();
+        }
+    }
+
+    void OnEndRotationEvent()
+    {
+        if (EndRotationEvent != null)
+        {
+            EndRotationEvent.Invoke(this, EventArgs.Empty);
         }
     }
 }
