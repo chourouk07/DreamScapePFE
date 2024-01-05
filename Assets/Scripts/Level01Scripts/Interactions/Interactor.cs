@@ -19,7 +19,7 @@ using UnityEngine.Windows;
             if (_numFound > 0)
             {
                 var interactable = _colliders[0].GetComponent<IInteractable>();
-                if (interactable != null && Keyboard.current.iKey.wasPressedThisFrame)
+                if (interactable != null && Keyboard.current.fKey.wasPressedThisFrame)
                 {
                     interactable.Interact(this);
                 }

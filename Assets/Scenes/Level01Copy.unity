@@ -44162,6 +44162,7 @@ GameObject:
   - component: {fileID: 1379393257}
   - component: {fileID: 1379393256}
   - component: {fileID: 1379393262}
+  - component: {fileID: 1379393263}
   m_Layer: 0
   m_Name: Pipe
   m_TagString: Collectable
@@ -45046,8 +45047,21 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.6
+  m_Radius: 1
   m_Center: {x: 0.37506104, y: 0.3829804, z: -0.37512207}
+--- !u!114 &1379393263
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1379393255}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 682b4306b89d02f4ea142fef30baf338, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _prompt: 
 --- !u!1 &1385420866
 GameObject:
   m_ObjectHideFlags: 0

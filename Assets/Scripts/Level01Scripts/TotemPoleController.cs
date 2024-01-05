@@ -37,6 +37,10 @@ public class TotemPoleController : MonoBehaviour
         {
             Debug.Log("Same Rotation");
             door1.SetActive(false);
+            _startChecking= false;
+            rotationController.EndRotationEvent -= OnEndRotationEvent;
+            rotationController = null;
+
         }
     }
 
