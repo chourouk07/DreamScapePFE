@@ -293,14 +293,14 @@ namespace StarterAssets
             }
         }
 
-        private void OnTriggerEnter(Collider other)
+        /*private void OnTriggerEnter(Collider other)
         {
             if (other.CompareTag("Collectable"))
             {
                 _playerInventory.PickItem(other.gameObject);
                 other.gameObject.SetActive(false);
             }
-        }
+        }*/
 
         private void JumpAndGravity()
         {
